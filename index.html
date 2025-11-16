@@ -63,7 +63,7 @@
             type="tel"
             id="wppPhoneInput"
             data-i18n-placeholder="field-wpp-phone-placeholder"
-            placeholder="Ej: 595981234567"
+            placeholder="Ej: 5950971113908"
           />
           <label for="wppMsgInput" data-i18n="field-wpp-message-label">Mensaje</label>
           <textarea
@@ -81,7 +81,7 @@
             type="text"
             id="igUserInput"
             data-i18n-placeholder="field-ig-user-placeholder"
-            placeholder="tu_usuario"
+            placeholder="nelson_spy"
           />
           <small class="hint" data-i18n="field-ig-user-hint">
             No hace falta el @ ni el enlace completo.
@@ -126,8 +126,15 @@
         <div class="form-group form-inline">
           <input type="checkbox" id="logoCheckbox" />
           <label for="logoCheckbox" data-i18n="field-logo-label">
-            Agregar logo simple en el centro
+            Agregar logo en el centro
           </label>
+        </div>
+
+        <div class="form-group logo-upload-group">
+          <input type="file" id="logoFileInput" accept="image/png,image/jpeg" />
+          <small class="hint" data-i18n="field-logo-hint">
+            PNG/JPG cuadrado recomendado. Se centrará automáticamente.
+          </small>
         </div>
 
         <!-- Botones principales -->
@@ -170,6 +177,15 @@
     <footer class="footer">
       <p data-i18n="footer-text">
         Hecho con ❤️ por Gabriel · Proyecto hosteado en GitHub Pages
+      </p>
+      <p class="footer-links">
+        <a href="https://instagram.com/nelson_spy" target="_blank" rel="noopener">
+          Instagram: @nelson_spy
+        </a>
+        ·
+        <a href="https://wa.me/5950971113908" target="_blank" rel="noopener">
+          WhatsApp: +595 0971 113 908
+        </a>
       </p>
     </footer>
   </div>

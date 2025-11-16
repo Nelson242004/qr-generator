@@ -338,6 +338,7 @@ function renderQR(content) {
   const colorDark = colorInput.value || "#000000";
   const colorLight = bgColorInput.value || "#ffffff";
 
+  // Generar QR (la librería puede crear <canvas> o <img>)
   qrCode = new QRCode(qrContainer, {
     text: content,
     width: size,
@@ -347,14 +348,45 @@ function renderQR(content) {
     correctLevel: QRCode.CorrectLevel.H,
   });
 
-  // pequeño delay para que el canvas se inserte
+  // Pequeño delay para que el DOM del QR aparezca
   setTimeout(() => {
-    const canvas = qrContainer.querySelector("canvas");
-    if (canvas && logoCheckbox.checked && logoImageDataURL) {
-      drawUserLogo(canvas, logoImageDataURL);
+    let canvas = qrContainer.querySelector("canvas");
+    const img = qrContainer.querySelector("img");
+
+    // Caso 1: la librería generó un <img>, lo convertimos a canvas
+    if (!canvas && img) {
+      const tmpCanvas = document.createElement("canvas");
+      tmpCanvas.width = size;
+      tmpCanvas.height = size;
+      const ctx = tmpCanvas.getContext("2d");
+      const qrImg = new Image();
+
+      qrImg.onload = () => {
+        ctx.drawImage(qrImg, 0, 0, size, size);
+
+        // Dibujar logo en el centro si corresponde
+        if (logoCheckbox.checked && logoImageDataURL) {
+          drawUserLogo(tmpCanvas, logoImageDataURL);
+        }
+
+        // Reemplazamos el contenido por el canvas final
+        qrContainer.innerHTML = "";
+        qrContainer.appendChild(tmpCanvas);
+        qrContainer.classList.add("visible");
+      };
+
+      qrImg.src = img.src;
+      return;
     }
-    qrContainer.classList.add("visible");
-  }, 60);
+
+    // Caso 2: la librería generó directamente un <canvas>
+    if (canvas) {
+      if (logoCheckbox.checked && logoImageDataURL) {
+        drawUserLogo(canvas, logoImageDataURL);
+      }
+      qrContainer.classList.add("visible");
+    }
+  }, 100);
 
   downloadBtn.disabled = false;
 }
@@ -376,7 +408,36 @@ function generateFromForm() {
 // ====== Descargar ======
 
 function downloadQR() {
-  const canvas = qrContainer.querySelector("canvas");
+  let canvas = qrContainer.querySelector("canvas");
+  const img = qrContainer.querySelector("img");
+
+  // Si no hay canvas pero sí hay imagen, la convertimos a canvas
+  if (!canvas && img) {
+    const size = parseInt(sizeSelect.value, 10) || img.naturalWidth || 256;
+    const tmpCanvas = document.createElement("canvas");
+    tmpCanvas.width = size;
+    tmpCanvas.height = size;
+    const ctx = tmpCanvas.getContext("2d");
+    const qrImg = new Image();
+
+    qrImg.onload = () => {
+      ctx.drawImage(qrImg, 0, 0, size, size);
+
+      if (logoCheckbox.checked && logoImageDataURL) {
+        drawUserLogo(tmpCanvas, logoImageDataURL);
+      }
+
+      const link = document.createElement("a");
+      link.href = tmpCanvas.toDataURL("image/png");
+      link.download = `qr-${Date.now()}.png`;
+      link.click();
+    };
+
+    qrImg.src = img.src;
+    return;
+  }
+
+  // Caso normal: ya tenemos canvas
   if (!canvas) return;
 
   const link = document.createElement("a");

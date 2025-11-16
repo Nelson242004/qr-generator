@@ -27,7 +27,6 @@ body {
   min-height: 100vh;
 }
 
-/* Layout general */
 .app {
   min-height: 100vh;
   display: flex;
@@ -39,7 +38,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.3rem 1.8rem;
+  padding: 1.1rem 1.6rem;
   backdrop-filter: blur(12px);
   background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.6));
   border-bottom: 1px solid rgba(148, 163, 184, 0.15);
@@ -112,7 +111,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-  padding: 1.5rem;
+  padding: 1.4rem;
   max-width: 1120px;
   margin: 0 auto;
 }
@@ -123,7 +122,7 @@ body {
   border-radius: 1.4rem;
   border: 1px solid rgba(148, 163, 184, 0.18);
   box-shadow: var(--shadow-soft);
-  padding: 1.4rem 1.6rem;
+  padding: 1.3rem 1.5rem;
 }
 
 .panel-form {
@@ -226,6 +225,12 @@ input[type="color"] {
 .form-inline input[type="checkbox"] {
   width: auto;
   transform: translateY(1px);
+}
+
+/* Logo upload */
+.logo-upload-group input[type="file"] {
+  width: 100%;
+  font-size: 0.8rem;
 }
 
 /* Botones */
@@ -439,6 +444,20 @@ input[type="color"] {
   color: var(--text-muted);
 }
 
+.footer-links {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.footer-links a {
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
 /* Utils */
 .hidden {
   display: none;
@@ -460,5 +479,40 @@ input[type="color"] {
 
   .qr-wrapper {
     min-height: 220px;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.9rem 1rem;
+  }
+
+  .main {
+    padding: 0.9rem;
+  }
+
+  .panel {
+    padding: 1rem 1.1rem;
+  }
+
+  .buttons-row {
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    flex: 1 1 auto;
+  }
+
+  .footer {
+    padding: 0.8rem 0.9rem 1rem;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
   }
 }

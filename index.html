@@ -2,51 +2,181 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Generador de Códigos QR Gratis</title>
+  <title>QR Pro | Generador de Códigos QR</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Generador de códigos QR gratis con soporte para enlaces, WhatsApp, Instagram, texto, historial y multi-idioma.">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="header">
-    <h1>Generador de Códigos QR</h1>
-    <p>Ingresa un enlace y genera tu código QR gratis.</p>
-  </header>
-
-  <main class="main">
-    <section class="card">
-      <div class="form-group">
-        <label for="urlInput">Enlace (URL)</label>
-        <input
-          type="url"
-          id="urlInput"
-          placeholder="https://ejemplo.com"
-          required
-        />
-        <small class="hint">Asegúrate de que empiece con http:// o https://</small>
+  <div class="app">
+    <header class="header">
+      <div class="header-left">
+        <div class="brand">
+          <div class="brand-logo">
+            <span>QR</span>
+          </div>
+          <div class="brand-text">
+            <h1 data-i18n="app-title">QR Pro</h1>
+            <p data-i18n="app-subtitle">Generador de códigos QR gratis y rápido</p>
+          </div>
+        </div>
       </div>
-
-      <button id="generateBtn" class="btn primary">Generar QR</button>
-      <button id="clearBtn" class="btn secondary">Limpiar</button>
-
-      <p id="errorMsg" class="error-msg"></p>
-
-      <div class="qr-container">
-        <h2>Tu código QR</h2>
-        <div id="qrcode" class="qrcode"></div>
-        <button id="downloadBtn" class="btn download" disabled>
-          Descargar PNG
-        </button>
+      <div class="header-right">
+        <button id="btnLangEs" class="lang-btn active">ES</button>
+        <button id="btnLangEn" class="lang-btn">EN</button>
       </div>
-    </section>
-  </main>
+    </header>
 
-  <footer class="footer">
-    <p>Hecho con ❤️ por Gabriel · Hosteado en GitHub Pages</p>
-  </footer>
+    <main class="main">
+      <section class="panel panel-form">
+        <h2 data-i18n="panel-config-title">Configurar contenido</h2>
 
-  <!-- Librería para generar QR (desde CDN) -->
+        <!-- Tipo de contenido -->
+        <div class="form-group">
+          <label for="typeSelect" data-i18n="field-type-label">¿Qué querés generar?</label>
+          <select id="typeSelect">
+            <option value="url" data-i18n="type-option-url">Enlace normal</option>
+            <option value="whatsapp" data-i18n="type-option-whatsapp">WhatsApp</option>
+            <option value="instagram" data-i18n="type-option-instagram">Instagram</option>
+            <option value="text" data-i18n="type-option-text">Texto simple</option>
+          </select>
+        </div>
+
+        <!-- URL normal -->
+        <div class="form-group content-group" id="group-url">
+          <label for="urlInput" data-i18n="field-url-label">Enlace (URL)</label>
+          <input
+            type="url"
+            id="urlInput"
+            data-i18n-placeholder="field-url-placeholder"
+            placeholder="https://ejemplo.com"
+          />
+          <small class="hint" data-i18n="field-url-hint">
+            Asegúrate de que empiece con http:// o https://
+          </small>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="form-group content-group hidden" id="group-whatsapp">
+          <label for="wppPhoneInput" data-i18n="field-wpp-phone-label">Número de WhatsApp</label>
+          <input
+            type="tel"
+            id="wppPhoneInput"
+            data-i18n-placeholder="field-wpp-phone-placeholder"
+            placeholder="Ej: 595981234567"
+          />
+          <label for="wppMsgInput" data-i18n="field-wpp-message-label">Mensaje</label>
+          <textarea
+            id="wppMsgInput"
+            rows="3"
+            data-i18n-placeholder="field-wpp-message-placeholder"
+            placeholder="Hola, vi tu QR y quiero más información."
+          ></textarea>
+        </div>
+
+        <!-- Instagram -->
+        <div class="form-group content-group hidden" id="group-instagram">
+          <label for="igUserInput" data-i18n="field-ig-user-label">Usuario de Instagram</label>
+          <input
+            type="text"
+            id="igUserInput"
+            data-i18n-placeholder="field-ig-user-placeholder"
+            placeholder="tu_usuario"
+          />
+          <small class="hint" data-i18n="field-ig-user-hint">
+            No hace falta el @ ni el enlace completo.
+          </small>
+        </div>
+
+        <!-- Texto simple -->
+        <div class="form-group content-group hidden" id="group-text">
+          <label for="textInput" data-i18n="field-text-label">Texto a codificar</label>
+          <textarea
+            id="textInput"
+            rows="3"
+            data-i18n-placeholder="field-text-placeholder"
+            placeholder="Escribe el texto que quieras guardar en el QR."
+          ></textarea>
+        </div>
+
+        <!-- Opciones de estilo -->
+        <h3 class="section-title" data-i18n="panel-style-title">Estilo del QR</h3>
+
+        <div class="options-row">
+          <div class="form-group">
+            <label for="sizeSelect" data-i18n="field-size-label">Tamaño</label>
+            <select id="sizeSelect">
+              <option value="256">256 px</option>
+              <option value="128">128 px</option>
+              <option value="512">512 px</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="colorInput" data-i18n="field-color-label">Color del QR</label>
+            <input type="color" id="colorInput" value="#000000" />
+          </div>
+
+          <div class="form-group">
+            <label for="bgColorInput" data-i18n="field-bgcolor-label">Color de fondo</label>
+            <input type="color" id="bgColorInput" value="#ffffff" />
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <input type="checkbox" id="logoCheckbox" />
+          <label for="logoCheckbox" data-i18n="field-logo-label">
+            Agregar logo simple en el centro
+          </label>
+        </div>
+
+        <!-- Botones principales -->
+        <div class="buttons-row">
+          <button id="exampleBtn" class="btn ghost" data-i18n="btn-example">Probar ejemplo</button>
+          <div class="spacer"></div>
+          <button id="clearBtn" class="btn secondary" data-i18n="btn-clear">Limpiar</button>
+          <button id="generateBtn" class="btn primary" data-i18n="btn-generate">Generar QR</button>
+        </div>
+
+        <p id="errorMsg" class="error-msg"></p>
+      </section>
+
+      <section class="panel panel-preview">
+        <div class="preview-main">
+          <h2 data-i18n="preview-title">Tu código QR</h2>
+          <p class="preview-subtitle" data-i18n="preview-subtitle">
+            Generá, probá con tu celular y descargá en PNG.
+          </p>
+          <div class="qr-wrapper">
+            <div id="qrcode" class="qrcode"></div>
+          </div>
+          <button id="downloadBtn" class="btn download" disabled data-i18n="btn-download">
+            Descargar PNG
+          </button>
+        </div>
+
+        <div class="preview-history">
+          <h3 data-i18n="history-title">Historial</h3>
+          <p class="history-hint" data-i18n="history-hint">
+            Últimos QR generados en este dispositivo.
+          </p>
+          <ul id="historyList" class="history-list">
+            <!-- items dinámicos -->
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p data-i18n="footer-text">
+        Hecho con ❤️ por Gabriel · Proyecto hosteado en GitHub Pages
+      </p>
+    </footer>
+  </div>
+
+  <!-- Librería para generar QR -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <!-- Tu lógica -->
+  <!-- Lógica -->
   <script src="script.js"></script>
 </body>
 </html>

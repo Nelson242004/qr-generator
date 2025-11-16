@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Generador de Códigos QR Gratis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>Generador de Códigos QR</h1>
+    <p>Ingresa un enlace y genera tu código QR gratis.</p>
+  </header>
+
+  <main class="main">
+    <section class="card">
+      <div class="form-group">
+        <label for="urlInput">Enlace (URL)</label>
+        <input
+          type="url"
+          id="urlInput"
+          placeholder="https://ejemplo.com"
+          required
+        />
+        <small class="hint">Asegúrate de que empiece con http:// o https://</small>
+      </div>
+
+      <button id="generateBtn" class="btn primary">Generar QR</button>
+      <button id="clearBtn" class="btn secondary">Limpiar</button>
+
+      <p id="errorMsg" class="error-msg"></p>
+
+      <div class="qr-container">
+        <h2>Tu código QR</h2>
+        <div id="qrcode" class="qrcode"></div>
+        <button id="downloadBtn" class="btn download" disabled>
+          Descargar PNG
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Hecho con ❤️ por Gabriel · Hosteado en GitHub Pages</p>
+  </footer>
+
+  <!-- Librería para generar QR (desde CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Tu lógica -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -14,11 +14,11 @@ const i18n = {
     "field-url-placeholder": "https://ejemplo.com",
     "field-url-hint": "Asegúrate de que empiece con http:// o https://",
     "field-wpp-phone-label": "Número de WhatsApp",
-    "field-wpp-phone-placeholder": "Ej: 595981234567",
+    "field-wpp-phone-placeholder": "Ej: 5950971113908",
     "field-wpp-message-label": "Mensaje",
     "field-wpp-message-placeholder": "Hola, vi tu QR y quiero más información.",
     "field-ig-user-label": "Usuario de Instagram",
-    "field-ig-user-placeholder": "tu_usuario",
+    "field-ig-user-placeholder": "nelson_spy",
     "field-ig-user-hint": "No hace falta el @ ni el enlace completo.",
     "field-text-label": "Texto a codificar",
     "field-text-placeholder": "Escribe el texto que quieras guardar en el QR.",
@@ -26,7 +26,8 @@ const i18n = {
     "field-size-label": "Tamaño",
     "field-color-label": "Color del QR",
     "field-bgcolor-label": "Color de fondo",
-    "field-logo-label": "Agregar logo simple en el centro",
+    "field-logo-label": "Agregar logo en el centro",
+    "field-logo-hint": "PNG/JPG cuadrado recomendado. Se centrará automáticamente.",
     "btn-example": "Probar ejemplo",
     "btn-clear": "Limpiar",
     "btn-generate": "Generar QR",
@@ -39,6 +40,7 @@ const i18n = {
     "error-empty": "Completá los datos antes de generar el QR.",
     "error-invalid-url": "La URL no es válida. Verifica que tenga http:// o https://",
     "error-invalid-phone": "Introduce un número de WhatsApp válido (solo dígitos).",
+    "error-logo-missing": "Seleccioná un logo PNG/JPG o desmarca la opción de logo.",
     "history-empty": "Todavía no generaste ningún QR.",
     "history-use": "Usar",
     "history-type-url": "URL",
@@ -59,11 +61,11 @@ const i18n = {
     "field-url-placeholder": "https://example.com",
     "field-url-hint": "Make sure it starts with http:// or https://",
     "field-wpp-phone-label": "WhatsApp number",
-    "field-wpp-phone-placeholder": "Ex: 595981234567",
+    "field-wpp-phone-placeholder": "Ex: 5950971113908",
     "field-wpp-message-label": "Message",
     "field-wpp-message-placeholder": "Hi, I scanned your QR and would like more info.",
     "field-ig-user-label": "Instagram username",
-    "field-ig-user-placeholder": "your_user",
+    "field-ig-user-placeholder": "nelson_spy",
     "field-ig-user-hint": "You don't need @ or full link.",
     "field-text-label": "Text to encode",
     "field-text-placeholder": "Write the text you want to store in the QR.",
@@ -71,7 +73,8 @@ const i18n = {
     "field-size-label": "Size",
     "field-color-label": "QR color",
     "field-bgcolor-label": "Background color",
-    "field-logo-label": "Add a simple logo in the center",
+    "field-logo-label": "Add a logo in the center",
+    "field-logo-hint": "Square PNG/JPG recommended. It will be centered automatically.",
     "btn-example": "Try example",
     "btn-clear": "Clear",
     "btn-generate": "Generate QR",
@@ -84,6 +87,7 @@ const i18n = {
     "error-empty": "Fill the fields before generating the QR.",
     "error-invalid-url": "Invalid URL. Make sure it starts with http:// or https://",
     "error-invalid-phone": "Enter a valid WhatsApp number (digits only).",
+    "error-logo-missing": "Select a PNG/JPG logo or uncheck the logo option.",
     "history-empty": "You haven't generated any QR codes yet.",
     "history-use": "Use",
     "history-type-url": "URL",
@@ -130,6 +134,7 @@ const sizeSelect = document.getElementById("sizeSelect");
 const colorInput = document.getElementById("colorInput");
 const bgColorInput = document.getElementById("bgColorInput");
 const logoCheckbox = document.getElementById("logoCheckbox");
+const logoFileInput = document.getElementById("logoFileInput");
 
 const generateBtn = document.getElementById("generateBtn");
 const clearBtn = document.getElementById("clearBtn");
@@ -145,6 +150,7 @@ const btnLangEn = document.getElementById("btnLangEn");
 
 let qrCode = null;
 const HISTORY_KEY = "qr_history_v1";
+let logoImageDataURL = null;
 
 // ====== Configuración de tipo de contenido ======
 
@@ -247,6 +253,80 @@ function buildContentFromForm() {
   return null;
 }
 
+// ====== Logo desde archivo ======
+
+function handleLogoFileChange(e) {
+  const file = e.target.files[0];
+  if (!file) {
+    logoImageDataURL = null;
+    return;
+  }
+  if (!file.type.startsWith("image/")) {
+    logoImageDataURL = null;
+    showError("error-logo-missing");
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = () => {
+    logoImageDataURL = reader.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// helper path rect redondeado
+function roundedRectPath(ctx, x, y, w, h, r) {
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+}
+
+// Logo del usuario
+function drawUserLogo(canvas, dataURL) {
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const size = canvas.width;
+  const logoSize = size * 0.24;
+  const x = (size - logoSize) / 2;
+  const y = (size - logoSize) / 2;
+
+  const img = new Image();
+  img.onload = () => {
+    ctx.save();
+
+    // fondo blanco redondeado
+    ctx.beginPath();
+    const r = logoSize * 0.25;
+    roundedRectPath(ctx, x, y, logoSize, logoSize, r);
+    ctx.closePath();
+
+    ctx.fillStyle = "rgba(255,255,255,0.96)";
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "rgba(15,23,42,0.22)";
+    ctx.stroke();
+
+    // recorte para la imagen
+    ctx.save();
+    ctx.beginPath();
+    roundedRectPath(ctx, x, y, logoSize, logoSize, r * 0.8);
+    ctx.closePath();
+    ctx.clip();
+
+    ctx.drawImage(img, x, y, logoSize, logoSize);
+    ctx.restore();
+
+    ctx.restore();
+  };
+  img.src = dataURL;
+}
+
 // ====== Generar QR ======
 
 function renderQR(content) {
@@ -267,14 +347,14 @@ function renderQR(content) {
     correctLevel: QRCode.CorrectLevel.H,
   });
 
-  // Pequeño delay para que el canvas se inserte
+  // pequeño delay para que el canvas se inserte
   setTimeout(() => {
     const canvas = qrContainer.querySelector("canvas");
-    if (canvas && logoCheckbox.checked) {
-      drawCenterLogo(canvas);
+    if (canvas && logoCheckbox.checked && logoImageDataURL) {
+      drawUserLogo(canvas, logoImageDataURL);
     }
     qrContainer.classList.add("visible");
-  }, 50);
+  }, 60);
 
   downloadBtn.disabled = false;
 }
@@ -283,52 +363,14 @@ function generateFromForm() {
   const result = buildContentFromForm();
   if (!result) return;
 
+  if (logoCheckbox.checked && !logoImageDataURL) {
+    showError("error-logo-missing");
+    return;
+  }
+
   renderQR(result.content);
   saveToHistory(result.type, result.label, result.content);
   renderHistory();
-}
-
-// Logo simple en el centro (canvas)
-function drawCenterLogo(canvas) {
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
-
-  const size = canvas.width;
-  const logoSize = size * 0.22;
-  const x = (size - logoSize) / 2;
-  const y = (size - logoSize) / 2;
-  const radius = logoSize * 0.25;
-
-  ctx.save();
-
-  // Fondo blanco redondeado
-  ctx.beginPath();
-  const r = radius;
-  ctx.moveTo(x + r, y);
-  ctx.lineTo(x + logoSize - r, y);
-  ctx.quadraticCurveTo(x + logoSize, y, x + logoSize, y + r);
-  ctx.lineTo(x + logoSize, y + logoSize - r);
-  ctx.quadraticCurveTo(x + logoSize, y + logoSize, x + logoSize - r, y + logoSize);
-  ctx.lineTo(x + r, y + logoSize);
-  ctx.quadraticCurveTo(x, y + logoSize, x, y + logoSize - r);
-  ctx.lineTo(x, y + r);
-  ctx.quadraticCurveTo(x, y, x + r, y);
-  ctx.closePath();
-
-  ctx.fillStyle = "rgba(255,255,255,0.96)";
-  ctx.fill();
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = "rgba(15,23,42,0.22)";
-  ctx.stroke();
-
-  // Texto "QR" (simple branding)
-  ctx.fillStyle = "#111827";
-  ctx.font = `${logoSize * 0.45}px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText("QR", x + logoSize / 2, y + logoSize / 2);
-
-  ctx.restore();
 }
 
 // ====== Descargar ======
@@ -351,6 +393,9 @@ function clearAll() {
   wppMsgInput.value = "";
   igUserInput.value = "";
   textInput.value = "";
+  logoCheckbox.checked = false;
+  logoFileInput.value = "";
+  logoImageDataURL = null;
   clearError();
   qrContainer.innerHTML = "";
   qrContainer.classList.remove("visible");
@@ -364,13 +409,13 @@ function fillExample() {
   if (type === "url") {
     urlInput.value = "https://gabriel.dev";
   } else if (type === "whatsapp") {
-    wppPhoneInput.value = "595981234567";
+    wppPhoneInput.value = "5950971113908";
     wppMsgInput.value =
       currentLang === "es"
         ? "Hola, vi tu QR y quiero más info 🙂"
         : "Hi, I scanned your QR and want more info 🙂";
   } else if (type === "instagram") {
-    igUserInput.value = "tu_usuario";
+    igUserInput.value = "nelson_spy";
   } else if (type === "text") {
     textInput.value =
       currentLang === "es"
@@ -448,7 +493,7 @@ function renderHistory() {
     return;
   }
 
-  history.forEach((item, index) => {
+  history.forEach((item) => {
     const li = document.createElement("li");
     li.className = "history-item";
 
@@ -475,7 +520,7 @@ function renderHistory() {
     btnUse.className = "history-use-btn";
     btnUse.textContent = t("history-use");
     btnUse.addEventListener("click", () => {
-      renderQR(item.content);
+      renderQR(item.content); // no reaplica logo antiguo (solo contenido)
     });
 
     li.appendChild(meta);
@@ -490,7 +535,7 @@ function setLanguage(lang) {
   if (lang !== "es" && lang !== "en") return;
   currentLang = lang;
   applyTranslations();
-  renderHistory(); // para actualizar textos de tipos y "Usar"
+  renderHistory(); // actualizar textos del historial
   btnLangEs.classList.toggle("active", lang === "es");
   btnLangEn.classList.toggle("active", lang === "en");
 }
@@ -506,6 +551,8 @@ exampleBtn.addEventListener("click", fillExample);
 
 btnLangEs.addEventListener("click", () => setLanguage("es"));
 btnLangEn.addEventListener("click", () => setLanguage("en"));
+
+logoFileInput.addEventListener("change", handleLogoFileChange);
 
 // Enter en inputs principales
 [urlInput, wppPhoneInput, wppMsgInput, igUserInput, textInput].forEach((el) => {
@@ -523,3 +570,4 @@ btnLangEn.addEventListener("click", () => setLanguage("en"));
 updateContentGroups();
 applyTranslations();
 renderHistory();
+setLanguage("es");

@@ -71,7 +71,7 @@ const i18n = {
     "history-type-text": "Texto",
 
     "footer-text":
-      "Hecho con ❤️ por Gabriel · Proyecto hosteado en GitHub Pages",
+      "Hecho por Gabriel ",
 
     "error-empty": "Completá los datos antes de generar el QR.",
     "error-invalid-url":
@@ -156,7 +156,7 @@ const i18n = {
     "history-type-text": "Text",
 
     "footer-text":
-      "Made with ❤️ by Gabriel · Project hosted on GitHub Pages",
+      "Made by Gabriel",
 
     "error-empty": "Fill the fields before generating the QR.",
     "error-invalid-url":

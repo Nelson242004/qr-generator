@@ -326,9 +326,13 @@ input[type="color"] {
 }
 
 /* Logo preview ----------------------------------------------------------- */
-.logo-upload-group input[type="file"] {
-  width: 100%;
-  font-size: 0.8rem;
+.logo-upload-group.hidden {
+  display: none !important;
+}
+
+#logoCheckbox:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .logo-preview {

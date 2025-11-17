@@ -680,15 +680,15 @@ function fillExample() {
   const type = typeSelect.value;
 
   if (type === "url") {
-    urlInput.value = "https://gabriel.dev";
+    urlInput.value = "https://tupagina.dev";
   } else if (type === "whatsapp") {
-    wppPhoneInput.value = "5950971113908";
+    wppPhoneInput.value = "5950978113908";
     wppMsgInput.value =
       currentLang === "es"
         ? "Hola, vi tu QR y quiero más info 🙂"
         : "Hi, I scanned your QR and want more info 🙂";
   } else if (type === "instagram") {
-    igUserInput.value = "nelson_spy";
+    igUserInput.value = "tuUsuario";
   } else if (type === "wifi") {
     wifiSsidInput.value = "MiRedWiFi";
     wifiSecuritySelect.value = "WPA";

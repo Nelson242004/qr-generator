@@ -71,7 +71,7 @@ const i18n = {
     "history-type-text": "Texto",
 
     "footer-text":
-      "Hecho por Gabriel ",
+      "Contáctame",
 
     "error-empty": "Completá los datos antes de generar el QR.",
     "error-invalid-url":
@@ -156,7 +156,7 @@ const i18n = {
     "history-type-text": "Text",
 
     "footer-text":
-      "Made by Gabriel",
+      "Contact me",
 
     "error-empty": "Fill the fields before generating the QR.",
     "error-invalid-url":

@@ -4,11 +4,15 @@
   <meta charset="UTF-8" />
   <title>QR Pro | Generador de Códigos QR</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Generador de códigos QR gratis con soporte para enlaces, WhatsApp, Instagram, texto, historial y multi-idioma.">
+  <meta
+    name="description"
+    content="Generador de códigos QR gratis: enlaces, WhatsApp, Instagram, Wi-Fi, texto, logo propio, historial, multi-idioma y modo oscuro/claro."
+  />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-theme="dark">
   <div class="app">
+    <!-- HEADER ------------------------------------------------------------ -->
     <header class="header">
       <div class="header-left">
         <div class="brand">
@@ -17,27 +21,44 @@
           </div>
           <div class="brand-text">
             <h1 data-i18n="app-title">QR Pro</h1>
-            <p data-i18n="app-subtitle">Generador de códigos QR gratis y rápido</p>
+            <p data-i18n="app-subtitle">
+              Generador de códigos QR gratis y rápido
+            </p>
           </div>
         </div>
       </div>
+
       <div class="header-right">
-        <button id="btnLangEs" class="lang-btn active">ES</button>
-        <button id="btnLangEn" class="lang-btn">EN</button>
+        <!-- Selector de idioma -->
+        <div class="lang-switch">
+          <button id="btnLangEs" class="lang-btn active">ES</button>
+          <button id="btnLangEn" class="lang-btn">EN</button>
+        </div>
+
+        <!-- Toggle modo oscuro/claro -->
+        <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema">
+          <span class="theme-icon theme-icon-sun">☀️</span>
+          <span class="theme-icon theme-icon-moon">🌙</span>
+        </button>
       </div>
     </header>
 
+    <!-- MAIN -------------------------------------------------------------- -->
     <main class="main">
+      <!-- PANEL IZQUIERDO: FORM ------------------------------------------- -->
       <section class="panel panel-form">
         <h2 data-i18n="panel-config-title">Configurar contenido</h2>
 
         <!-- Tipo de contenido -->
         <div class="form-group">
-          <label for="typeSelect" data-i18n="field-type-label">¿Qué querés generar?</label>
+          <label for="typeSelect" data-i18n="field-type-label">
+            ¿Qué querés generar?
+          </label>
           <select id="typeSelect">
             <option value="url" data-i18n="type-option-url">Enlace normal</option>
             <option value="whatsapp" data-i18n="type-option-whatsapp">WhatsApp</option>
             <option value="instagram" data-i18n="type-option-instagram">Instagram</option>
+            <option value="wifi" data-i18n="type-option-wifi">Wi-Fi</option>
             <option value="text" data-i18n="type-option-text">Texto simple</option>
           </select>
         </div>
@@ -58,14 +79,18 @@
 
         <!-- WhatsApp -->
         <div class="form-group content-group hidden" id="group-whatsapp">
-          <label for="wppPhoneInput" data-i18n="field-wpp-phone-label">Número de WhatsApp</label>
+          <label for="wppPhoneInput" data-i18n="field-wpp-phone-label">
+            Número de WhatsApp
+          </label>
           <input
             type="tel"
             id="wppPhoneInput"
             data-i18n-placeholder="field-wpp-phone-placeholder"
             placeholder="Ej: 5950971113908"
           />
-          <label for="wppMsgInput" data-i18n="field-wpp-message-label">Mensaje</label>
+          <label for="wppMsgInput" data-i18n="field-wpp-message-label">
+            Mensaje
+          </label>
           <textarea
             id="wppMsgInput"
             rows="3"
@@ -76,7 +101,9 @@
 
         <!-- Instagram -->
         <div class="form-group content-group hidden" id="group-instagram">
-          <label for="igUserInput" data-i18n="field-ig-user-label">Usuario de Instagram</label>
+          <label for="igUserInput" data-i18n="field-ig-user-label">
+            Usuario de Instagram
+          </label>
           <input
             type="text"
             id="igUserInput"
@@ -88,9 +115,51 @@
           </small>
         </div>
 
+        <!-- Wi-Fi -->
+        <div class="content-group hidden" id="group-wifi">
+          <div class="form-group">
+            <label for="wifiSsidInput" data-i18n="field-wifi-ssid-label">
+              Nombre de la red (SSID)
+            </label>
+            <input
+              type="text"
+              id="wifiSsidInput"
+              data-i18n-placeholder="field-wifi-ssid-placeholder"
+              placeholder="MiRedWiFi"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="wifiSecuritySelect" data-i18n="field-wifi-security-label">
+              Seguridad
+            </label>
+            <select id="wifiSecuritySelect">
+              <option value="WPA">WPA/WPA2</option>
+              <option value="WEP">WEP</option>
+              <option value="nopass" data-i18n="field-wifi-security-open">
+                Sin contraseña
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group" id="wifiPasswordGroup">
+            <label for="wifiPasswordInput" data-i18n="field-wifi-password-label">
+              Contraseña
+            </label>
+            <input
+              type="text"
+              id="wifiPasswordInput"
+              data-i18n-placeholder="field-wifi-password-placeholder"
+              placeholder="contraseña123"
+            />
+          </div>
+        </div>
+
         <!-- Texto simple -->
         <div class="form-group content-group hidden" id="group-text">
-          <label for="textInput" data-i18n="field-text-label">Texto a codificar</label>
+          <label for="textInput" data-i18n="field-text-label">
+            Texto a codificar
+          </label>
           <textarea
             id="textInput"
             rows="3"
@@ -99,7 +168,7 @@
           ></textarea>
         </div>
 
-        <!-- Opciones de estilo -->
+        <!-- Opciones de estilo del QR -->
         <h3 class="section-title" data-i18n="panel-style-title">Estilo del QR</h3>
 
         <div class="options-row">
@@ -113,16 +182,21 @@
           </div>
 
           <div class="form-group">
-            <label for="colorInput" data-i18n="field-color-label">Color del QR</label>
+            <label for="colorInput" data-i18n="field-color-label">
+              Color del QR
+            </label>
             <input type="color" id="colorInput" value="#000000" />
           </div>
 
           <div class="form-group">
-            <label for="bgColorInput" data-i18n="field-bgcolor-label">Color de fondo</label>
+            <label for="bgColorInput" data-i18n="field-bgcolor-label">
+              Color de fondo
+            </label>
             <input type="color" id="bgColorInput" value="#ffffff" />
           </div>
         </div>
 
+        <!-- Logo en el centro -->
         <div class="form-group form-inline">
           <input type="checkbox" id="logoCheckbox" />
           <label for="logoCheckbox" data-i18n="field-logo-label">
@@ -135,33 +209,69 @@
           <small class="hint" data-i18n="field-logo-hint">
             PNG/JPG cuadrado recomendado. Se centrará automáticamente.
           </small>
+          <div id="logoPreview" class="logo-preview hidden"></div>
         </div>
 
         <!-- Botones principales -->
         <div class="buttons-row">
-          <button id="exampleBtn" class="btn ghost" data-i18n="btn-example">Probar ejemplo</button>
+          <button id="exampleBtn" class="btn ghost" data-i18n="btn-example">
+            Probar ejemplo
+          </button>
           <div class="spacer"></div>
-          <button id="clearBtn" class="btn secondary" data-i18n="btn-clear">Limpiar</button>
-          <button id="generateBtn" class="btn primary" data-i18n="btn-generate">Generar QR</button>
+          <button id="clearBtn" class="btn secondary" data-i18n="btn-clear">
+            Limpiar
+          </button>
+          <button id="generateBtn" class="btn primary" data-i18n="btn-generate">
+            Generar QR
+          </button>
         </div>
 
-        <p id="errorMsg" class="error-msg"></p>
+        <p id="errorMsg" class="error-msg" aria-live="polite"></p>
       </section>
 
+      <!-- PANEL DERECHO: PREVIEW + HISTORIAL ------------------------------ -->
       <section class="panel panel-preview">
         <div class="preview-main">
           <h2 data-i18n="preview-title">Tu código QR</h2>
           <p class="preview-subtitle" data-i18n="preview-subtitle">
             Generá, probá con tu celular y descargá en PNG.
           </p>
+
           <div class="qr-wrapper">
+            <!-- Mensaje inicial cuando no hay QR -->
+            <div id="qrPlaceholder" class="qr-placeholder">
+              <span data-i18n="preview-placeholder">
+                Todavía no generaste ningún QR. Completá el formulario y toca
+                “Generar QR”.
+              </span>
+            </div>
             <div id="qrcode" class="qrcode"></div>
           </div>
-          <button id="downloadBtn" class="btn download" disabled data-i18n="btn-download">
+
+          <!-- Contenido asociado al QR + copiar -->
+          <div class="qr-content-row">
+            <span id="qrContentText" class="qr-content-text"></span>
+            <button
+              id="copyContentBtn"
+              class="btn tiny"
+              disabled
+              data-i18n="btn-copy"
+            >
+              Copiar
+            </button>
+          </div>
+
+          <button
+            id="downloadBtn"
+            class="btn download"
+            disabled
+            data-i18n="btn-download"
+          >
             Descargar PNG
           </button>
         </div>
 
+        <!-- Historial -->
         <div class="preview-history">
           <h3 data-i18n="history-title">Historial</h3>
           <p class="history-hint" data-i18n="history-hint">
@@ -174,96 +284,81 @@
       </section>
     </main>
 
-<footer class="footer">
-  <p data-i18n="footer-text">
-    Hecho con ❤️ por Gabriel · Proyecto hosteado en GitHub Pages
-  </p>
+    <!-- FOOTER ------------------------------------------------------------ -->
+    <footer class="footer">
+      <p data-i18n="footer-text">
+        Hecho con ❤️ por Gabriel · Proyecto hosteado en GitHub Pages
+      </p>
 
-  <div class="footer-social">
-    <!-- Instagram -->
-<a
-  href="https://instagram.com/nelson_spy"
-  target="_blank"
-  rel="noopener"
-  class="social-icon"
-  aria-label="Instagram"
->
-  <svg viewBox="0 0 512 512" class="social-svg">
-    <defs>
-      <radialGradient id="instaCircle" cx="30%" cy="80%" r="85%">
-        <stop offset="0%" stop-color="#fdf497"/>
-        <stop offset="40%" stop-color="#fd5949"/>
-        <stop offset="60%" stop-color="#d6249f"/>
-        <stop offset="100%" stop-color="#285AEB"/>
-      </radialGradient>
-    </defs>
+      <div class="footer-social">
+        <!-- Instagram -->
+        <a
+          href="https://instagram.com/nelson_spy"
+          target="_blank"
+          rel="noopener"
+          class="social-icon"
+          aria-label="Instagram"
+        >
+          <svg viewBox="0 0 512 512" class="social-svg">
+            <defs>
+              <radialGradient id="instaCircle" cx="30%" cy="80%" r="85%">
+                <stop offset="0%" stop-color="#fdf497"/>
+                <stop offset="40%" stop-color="#fd5949"/>
+                <stop offset="60%" stop-color="#d6249f"/>
+                <stop offset="100%" stop-color="#285AEB"/>
+              </radialGradient>
+            </defs>
 
-    <circle cx="256" cy="256" r="256" fill="url(#instaCircle)" />
+            <circle cx="256" cy="256" r="256" fill="url(#instaCircle)" />
+            <rect
+              x="170"
+              y="170"
+              width="172"
+              height="172"
+              rx="50"
+              fill="none"
+              stroke="white"
+              stroke-width="28"
+            />
+            <circle
+              cx="256"
+              cy="256"
+              r="52"
+              fill="none"
+              stroke="white"
+              stroke-width="28"
+            />
+            <circle cx="330" cy="190" r="22" fill="white" />
+          </svg>
+        </a>
 
-    <rect
-      x="170"
-      y="170"
-      width="172"
-      height="172"
-      rx="50"
-      fill="none"
-      stroke="white"
-      stroke-width="28"
-    />
-
-    <circle
-      cx="256"
-      cy="256"
-      r="52"
-      fill="none"
-      stroke="white"
-      stroke-width="28"
-    />
-
-    <circle
-      cx="330"
-      cy="190"
-      r="22"
-      fill="white"
-    />
-  </svg>
-</a>
-
-
-
-
-    <!-- WhatsApp -->
-<a
-  href="https://wa.me/5950971113908"
-  target="_blank"
-  rel="noopener"
-  class="social-icon"
-  aria-label="WhatsApp"
->
-  <svg viewBox="0 0 512 512" class="social-svg">
-    <circle cx="256" cy="256" r="256" fill="#25D366"/>
-    <path fill="#fff" d="M256 102c-84 0-152 66-152 148 0 26 7 52 20 74l-14
-    74 76-24c22 12 48 18 72 18 84 0 152-66 152-148S340 102 256 102zm0 268c-22
-    0-44-6-64-18l-4-2-45 14 8-42-3-4c-12-18-18-40-18-62 0-66 56-120 126-120s126
-    54 126 120-56 120-126 120zm68-95c-4-2-26-13-30-14-4-1-7-2-10 2-3 5-11 14-13
-    17-2 3-5 4-9 2-4-2-17-6-33-20-12-11-20-24-22-28-2-4 0-6 2-8l8-9c2-2 3-3 5-6
-    2-2 1-4 0-6-1-2-10-25-14-34-4-9-7-7-10-7-3 0-6 0-9 0-3 0-8 1-12 5-4 4-15
-    15-15 36s15 41 17 44c2 3 30 50 74 68 44 18 44 12 52 12 8 0 26-10 30-20
-    4-10 4-18 3-20-1-2-4-3-8-5z"/>
-  </svg>
-</a>
-
-
-  </div>
-</footer>
-
-
-
+        <!-- WhatsApp -->
+        <a
+          href="https://wa.me/5950971113908"
+          target="_blank"
+          rel="noopener"
+          class="social-icon"
+          aria-label="WhatsApp"
+        >
+          <svg viewBox="0 0 512 512" class="social-svg">
+            <circle cx="256" cy="256" r="256" fill="#25D366"/>
+            <path fill="#fff" d="M256 102c-84 0-152 66-152 148 0 26 7 52 20 74l-14
+            74 76-24c22 12 48 18 72 18 84 0 152-66 152-148S340 102 256 102zm0 268c-22
+            0-44-6-64-18l-4-2-45 14 8-42-3-4c-12-18-18-40-18-62 0-66 56-120 126-120s126
+            54 126 120-56 120-126 120zm68-95c-4-2-26-13-30-14-4-1-7-2-10 2-3 5-11 14-13
+            17-2 3-5 4-9 2-4-2-17-6-33-20-12-11-20-24-22-28-2-4 0-6 2-8l8-9c2-2 3-3 5-6
+            2-2 1-4 0-6-1-2-10-25-14-34-4-9-7-7-10-7-3 0-6 0-9 0-3 0-8 1-12 5-4 4-15
+            15-15 36s15 41 17 44c2 3 30 50 74 68 44 18 44 12 52 12 8 0 26-10 30-20
+            4-10 4-18 3-20-1-2-4-3-8-5z"/>
+          </svg>
+        </a>
+      </div>
+    </footer>
   </div>
 
-  <!-- Librería para generar QR -->
+  <!-- Librería para generar QR (CDN) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <!-- Lógica -->
+  <!-- Lógica principal -->
   <script src="script.js"></script>
 </body>
 </html>

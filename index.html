@@ -182,15 +182,16 @@
   <div class="footer-social">
     <!-- Instagram -->
 <a
+<a
   href="https://instagram.com/nelson_spy"
   target="_blank"
   rel="noopener"
   class="social-icon"
   aria-label="Instagram"
 >
-  <svg viewBox="0 0 24 24" class="social-svg">
+  <svg viewBox="0 0 512 512" class="social-svg">
     <defs>
-      <radialGradient id="insta_bg" cx="30%" cy="90%" r="85%">
+      <radialGradient id="instaCircle" cx="30%" cy="80%" r="85%">
         <stop offset="0%" stop-color="#fdf497"/>
         <stop offset="40%" stop-color="#fd5949"/>
         <stop offset="60%" stop-color="#d6249f"/>
@@ -198,40 +199,26 @@
       </radialGradient>
     </defs>
 
-    <!-- Fondo degradado -->
-    <rect width="24" height="24" rx="6" fill="url(#insta_bg)" />
+    <!-- Círculo completo (no se recorta en el contenedor redondo) -->
+    <circle cx="256" cy="256" r="256" fill="url(#instaCircle)" />
 
-    <!-- Marco de la cámara -->
+    <!-- Marco de cámara -->
     <rect
-      x="5"
-      y="5"
-      width="14"
-      height="14"
-      rx="4"
+      x="160"
+      y="160"
+      width="192"
+      height="192"
+      rx="55"
       fill="none"
       stroke="white"
-      stroke-width="2.2"
+      stroke-width="32"
     />
 
     <!-- Lente -->
     <circle
-      cx="12"
-      cy="12"
-      r="3.5"
-      fill="none"
-      stroke="white"
-      stroke-width="2.1"
-    />
+      cx="256"
+      cy="256"
 
-    <!-- Flash -->
-    <circle
-      cx="16.5"
-      cy="7.5"
-      r="1.4"
-      fill="white"
-    />
-  </svg>
-</a>
 
 
 

@@ -444,60 +444,40 @@ input[type="color"] {
   color: var(--text-muted);
 }
 
-/* Contenedor de iconos sociales */
+/* Contenedor de iconos */
 .footer-social {
-  margin-top: 0.45rem;
+  margin-top: 0.55rem;
   display: flex;
   justify-content: center;
-  gap: 0.7rem;
+  gap: 0.8rem;
 }
 
-/* Icono base */
+/* Iconos */
 .social-icon {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: 999px;
-  display: inline-flex;
+  overflow: hidden;
+  display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.8);
-  transform: translateY(0);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* Instagram style */
-.social-instagram {
-  background: radial-gradient(circle at 30% 30%, #fce7f3, #ec4899, #7c3aed);
+.social-icon img {
+  width: 70%;
+  height: 70%;
 }
 
-/* WhatsApp style */
-.social-whatsapp {
-  background: radial-gradient(circle at 30% 30%, #bbf7d0, #22c55e, #15803d);
-}
-
-/* Pequeño "punto" blanco como logo minimalista */
-.social-icon::before {
-  content: "";
-  width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.96);
-}
-
-/* Hover */
 .social-icon:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.95);
-  opacity: 0.95;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 14px 26px rgba(0,0,0,0.6);
 }
 
-/* En móvil se ve uno al lado del otro igual */
-@media (max-width: 640px) {
-  .footer {
-    padding: 0.8rem 0.9rem 1rem;
-  }
-}
 
 
 /* Utils */

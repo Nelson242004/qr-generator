@@ -26,7 +26,7 @@ const i18n = {
       "Hola, vi tu QR y quiero más información.",
 
     "field-ig-user-label": "Usuario de Instagram",
-    "field-ig-user-placeholder": "JuanitoEjemplo",
+    "field-ig-user-placeholder": "TuUsuario",
     "field-ig-user-hint": "No hace falta el @ ni el enlace completo.",
 
     "field-text-label": "Texto a codificar",
@@ -110,7 +110,7 @@ const i18n = {
       "Hi, I scanned your QR and would like more info.",
 
     "field-ig-user-label": "Instagram username",
-    "field-ig-user-placeholder": "JuanitoExample",
+    "field-ig-user-placeholder": "TuUsuario",
     "field-ig-user-hint": "You don't need @ or full link.",
 
     "field-text-label": "Text to encode",

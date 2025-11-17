@@ -452,32 +452,35 @@ input[type="color"] {
   gap: 0.8rem;
 }
 
-/* Botón circular */
 .social-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+
+  /* ⬇ se adapta al tamaño del SVG */
+  width: auto;
+  height: auto;
+  padding: 0;
+
+  /* ⬇ sutil fondo para que combine con la UI */
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px; /* 🎯 cuadrado redondeado, NO círculo */
+  backdrop-filter: blur(6px);
+  
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* El SVG ocupa casi todo el círculo */
+/* el SVG ocupa exactamente el espacio que debe */
 .social-svg {
-  width: 90%;
-  height: 90%;
+  width: 34px;
+  height: 34px;
 }
 
-/* Hover */
+/* hover premium */
 .social-icon:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.75);
-  opacity: 0.98;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4);
 }
 
 

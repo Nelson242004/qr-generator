@@ -190,23 +190,25 @@
 >
   <svg viewBox="0 0 24 24" class="social-svg">
     <defs>
-      <linearGradient id="insta_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <radialGradient id="insta_bg" cx="30%" cy="90%" r="85%">
         <stop offset="0%" stop-color="#fdf497"/>
         <stop offset="40%" stop-color="#fd5949"/>
         <stop offset="60%" stop-color="#d6249f"/>
         <stop offset="100%" stop-color="#285AEB"/>
-      </linearGradient>
+      </radialGradient>
     </defs>
 
-    <rect width="24" height="24" rx="6" fill="url(#insta_grad)"/>
+    <!-- Fondo redondeado -->
+    <rect width="24" height="24" rx="6" fill="url(#insta_bg)" />
 
-    <!-- Cámara -->
-    <path
-      fill="white"
-      d="M12 7.2a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 0 0 0-9.6Zm0 7.8a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm5.1-8.7a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0Z"
-    />
+    <!-- Outline ultra fino -->
+    <circle cx="12" cy="12" r="5" stroke="white" stroke-width="1.8" fill="none"/>
+
+    <!-- Punto de flash -->
+    <circle cx="17" cy="7" r="1.35" fill="white"/>
   </svg>
 </a>
+
 
 
     <!-- WhatsApp -->

@@ -444,19 +444,61 @@ input[type="color"] {
   color: var(--text-muted);
 }
 
-.footer-links {
-  margin-top: 0.25rem;
-  font-size: 0.8rem;
+/* Contenedor de iconos sociales */
+.footer-social {
+  margin-top: 0.45rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
 }
 
-.footer-links a {
-  color: #93c5fd;
+/* Icono base */
+.social-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.8);
+  transform: translateY(0);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
 }
 
-.footer-links a:hover {
-  text-decoration: underline;
+/* Instagram style */
+.social-instagram {
+  background: radial-gradient(circle at 30% 30%, #fce7f3, #ec4899, #7c3aed);
 }
+
+/* WhatsApp style */
+.social-whatsapp {
+  background: radial-gradient(circle at 30% 30%, #bbf7d0, #22c55e, #15803d);
+}
+
+/* Pequeño "punto" blanco como logo minimalista */
+.social-icon::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+}
+
+/* Hover */
+.social-icon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.95);
+  opacity: 0.95;
+}
+
+/* En móvil se ve uno al lado del otro igual */
+@media (max-width: 640px) {
+  .footer {
+    padding: 0.8rem 0.9rem 1rem;
+  }
+}
+
 
 /* Utils */
 .hidden {

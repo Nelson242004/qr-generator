@@ -444,44 +444,45 @@ input[type="color"] {
   color: var(--text-muted);
 }
 
-/* Contenedor de iconos */
 .footer-social {
   margin-top: 0.55rem;
   display: flex;
   justify-content: center;
-  gap: 0.8rem;
+  align-items: center;
+  gap: 0.9rem;
 }
 
+/* Botón contenedor — IGUAL para ambos */
 .social-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  /* ⬇ se adapta al tamaño del SVG */
-  width: auto;
-  height: auto;
-  padding: 0;
-
-  /* ⬇ sutil fondo para que combine con la UI */
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px; /* 🎯 cuadrado redondeado, NO círculo */
   backdrop-filter: blur(6px);
-  
+
+  box-shadow: 0 8px 18px rgba(0,0,0,0.5);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* el SVG ocupa exactamente el espacio que debe */
+/* El SVG se escala perfectamente dentro */
 .social-svg {
-  width: 34px;
-  height: 34px;
+  width: 80%;
+  height: 80%;
 }
 
-/* hover premium */
+/* Hover premium */
 .social-icon:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.6);
 }
+
 
 
 

@@ -26,7 +26,7 @@ const i18n = {
       "Hola, vi tu QR y quiero más información.",
 
     "field-ig-user-label": "Usuario de Instagram",
-    "field-ig-user-placeholder": "nelson_spy",
+    "field-ig-user-placeholder": "JuanitoEjemplo",
     "field-ig-user-hint": "No hace falta el @ ni el enlace completo.",
 
     "field-text-label": "Texto a codificar",
@@ -104,13 +104,13 @@ const i18n = {
     "field-url-hint": "Make sure it starts with http:// or https://",
 
     "field-wpp-phone-label": "WhatsApp number",
-    "field-wpp-phone-placeholder": "Ex: 5950971113908",
+    "field-wpp-phone-placeholder": "Ex: 5950978113908",
     "field-wpp-message-label": "Message",
     "field-wpp-message-placeholder":
       "Hi, I scanned your QR and would like more info.",
 
     "field-ig-user-label": "Instagram username",
-    "field-ig-user-placeholder": "nelson_spy",
+    "field-ig-user-placeholder": "JuanitoExample",
     "field-ig-user-hint": "You don't need @ or full link.",
 
     "field-text-label": "Text to encode",
